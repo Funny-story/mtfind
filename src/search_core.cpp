@@ -219,8 +219,6 @@ int SearchCore::search() const
     int leftBorder = 0;
     int rightBorder = 0;
     size_t textLength = m_impl->text.length();
-	std::cout << m_impl->text << std::endl;
-	std::cout << "+++++++++" << std::endl;
     for (size_t i=0; startWith < textLength && i <= THREADS_COUNT; ++i)
     {
         leftBorder = startWith-maskSize >= 0 ? startWith-maskSize : 0;
@@ -231,10 +229,7 @@ int SearchCore::search() const
         if (lastNewRowPosInPart != std::string::npos)
             lastNewRowPos += lastNewRowPosInPart;
         startPosInLine = leftBorder-lastNewRowPos > 0 ? leftBorder-lastNewRowPos : 1;
-		std::cout << partOfText << std::endl;
-		std::cout << "lineCounter = " << lineCounter << " | startPosInLine = " << startPosInLine << " | " << std::endl;
-		std::cout << "==========" << std::endl;
-		std::thread t(SearchCorePrivate::search, lineCounter, startPosInLine, partOfText, m_impl->mask, &m_impl->result);
+	std::thread t(SearchCorePrivate::search, lineCounter, startPosInLine, partOfText, m_impl->mask, &m_impl->result);
         m_impl->threads.push_back(std::move(t));
         std::string partWithoutMask = partOfText.substr(0, partOfText.length()-maskSize); 
         lineCounter += std::count(partWithoutMask.begin(), partWithoutMask.end(), '\n');
