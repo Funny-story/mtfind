@@ -1,0 +1,8 @@
+CONFIGURE
+cd build && cmake .. -DCMAKE_INSTALL_PREFIX=..
+
+INSTALL
+make && make install
+
+START
+cd ../bin && ./mtfind input_file "mask"
